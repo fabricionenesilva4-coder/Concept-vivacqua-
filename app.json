@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Concept Vivacqua - Zelador",
+    "slug": "concept-vivacqua-zelador",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "br.com.conceptvivacqua.zelador"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O aplicativo precisa acessar suas fotos para anexar comprovantes às tarefas.",
+          "cameraPermission": "O aplicativo precisa usar a câmera para registrar os serviços."
+        }
+      ]
+    ]
+  }
+}
