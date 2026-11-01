@@ -1,3 +1,4 @@
+
 {
   "expo": {
     "name": "Concept Vivacqua - Zelador",
@@ -16,10 +17,11 @@
           "cameraPermission": "O aplicativo precisa usar a câmera para registrar os serviços."
         }
       ]
-    ]
-  }
-"extra": {
-  "eas": {
-    "projectId": "185084d0-c527-4dd3-916e-f2991ea116ed"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "185084d0-c527-4dd3-916e-f2991ea116ed"
+      }
+    }
   }
 }
