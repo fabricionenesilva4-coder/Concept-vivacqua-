@@ -1,7 +1,8 @@
+
 {
   "expo": {
-    "name":"slug": "conceptvivacqua", ,
-    "slug": "concept-vivacqua-zelador",
+    "name": "Concept Vivacqua - Zelador",
+    "slug": "conceptvivacqua",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
