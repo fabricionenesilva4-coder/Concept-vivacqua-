@@ -67,22 +67,54 @@ export default function App() {
   }
   async function logout() { await signOut(auth); setScreen('home'); }
 
-  async function markTask(area, task, status) {
-    try {
-      const key = `${area}__${task}`;
-      const existing = records[key];
-      if (existing?.id) {
-        await updateDoc(doc(db, 'tasks', existing.id), { status, updatedAt: serverTimestamp() });
-        setRecords(old => ({ ...old, [key]: { ...old[key], status } }));
-      } else {
-        const refDoc = await addDoc(collection(db, 'tasks'), {
-          area, task, status, userId: user.uid, userEmail: user.email,
-          createdAt: serverTimestamp(), updatedAt: serverTimestamp(), photoUrl: null
-        });
-        setRecords(old => ({ ...old, [key]: { id: refDoc.id, status } }));
-      }
-    } catch { Alert.alert('Erro', 'Não foi possível salvar. Verifique a internet e as regras do Firebase.'); }
+ async function markTask(area, task, status) {
+  if (!user) {
+    Alert.alert('Atenção', 'Faça login novamente.');
+    return;
   }
+
+  try {
+    const key = `${area}__${task}`;
+    const existing = records[key];
+
+    if (existing?.id) {
+      await updateDoc(doc(db, 'tasks', existing.id), {
+        status,
+        updatedAt: serverTimestamp()
+      });
+    } else {
+      const refDoc = await addDoc(collection(db, 'tasks'), {
+        area,
+        task,
+        status,
+        userId: user.uid,
+        userEmail: user.email,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+        photoUrl: null
+      });
+
+      setRecords(old => ({
+        ...old,
+        [key]: { id: refDoc.id, status }
+      }));
+    }
+
+    if (existing?.id) {
+      setRecords(old => ({
+        ...old,
+        [key]: { ...old[key], status }
+      }));
+    }
+
+    Alert.alert('Sucesso', 'Tarefa atualizada!');
+  } catch (e) {
+    Alert.alert(
+      'Erro ao salvar',
+      `Código: ${e.code || 'desconhecido'}\n${e.message || 'Erro desconhecido'}`
+    );
+  }
+} 
 
   async function choosePhoto() {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
